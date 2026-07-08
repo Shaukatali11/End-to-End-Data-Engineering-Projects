@@ -1,0 +1,368 @@
+# 🟡 Level 2: Data Querying & Manipulation (Intermediate)
+
+At this level, you'll learn how to filter, manipulate, summarize, and transform data using SQL. These concepts are widely used in ETL pipelines, reporting, dashboards, and analytics.
+
+---
+
+## 1. Logical Operators
+Logical operators combine multiple conditions in a query.
+
+**Operators:** `AND`, `OR`, `NOT`
+
+**Example**
+```sql
+SELECT *
+FROM Employee
+WHERE Department='IT'
+AND Salary > 50000;
+```
+
+---
+
+## 2. Comparison Operators
+Used to compare two values.
+
+**Operators:** `=`, `!=`, `>`, `<`, `>=`, `<=`
+
+**Example**
+```sql
+SELECT *
+FROM Employee
+WHERE Salary >= 60000;
+```
+
+---
+
+## 3. Arithmetic Operators
+Perform mathematical calculations on numeric columns.
+
+**Operators:** `+`, `-`, `*`, `/`, `%`
+
+**Example**
+```sql
+SELECT Name,
+Salary,
+Salary * 12 AS Annual_Salary
+FROM Employee;
+```
+
+---
+
+## 4. BETWEEN
+Filters records within a specified range (inclusive).
+
+**Syntax**
+```sql
+SELECT *
+FROM Employee
+WHERE Salary BETWEEN 40000 AND 70000;
+```
+
+---
+
+## 5. IN
+Checks whether a value exists in a list.
+
+**Syntax**
+```sql
+SELECT *
+FROM Employee
+WHERE Department IN ('IT','HR','Finance');
+```
+
+---
+
+## 6. LIKE
+Searches for a specific pattern in text.
+
+**Syntax**
+```sql
+SELECT *
+FROM Employee
+WHERE Name LIKE 'S%';
+```
+
+---
+
+## 7. Wildcards
+Special characters used with `LIKE`.
+
+| Wildcard | Meaning |
+|----------|---------|
+| `%` | Any number of characters |
+| `_` | Exactly one character |
+
+**Example**
+```sql
+SELECT *
+FROM Employee
+WHERE Name LIKE '_a%';
+```
+
+---
+
+## 8. IS NULL
+Checks for NULL (missing) values.
+
+**Syntax**
+```sql
+SELECT *
+FROM Employee
+WHERE ManagerID IS NULL;
+```
+
+---
+
+## 9. CASE WHEN
+Adds conditional logic inside SQL queries.
+
+**Syntax**
+```sql
+SELECT Name,
+CASE
+WHEN Salary >= 70000 THEN 'High'
+WHEN Salary >=50000 THEN 'Medium'
+ELSE 'Low'
+END AS Salary_Level
+FROM Employee;
+```
+
+---
+
+## 10. IFNULL / COALESCE
+Replaces NULL values with another value.
+
+**MySQL**
+```sql
+SELECT IFNULL(Bonus,0)
+FROM Employee;
+```
+
+**Standard SQL**
+```sql
+SELECT COALESCE(Bonus,0)
+FROM Employee;
+```
+
+---
+
+## 11. Aggregate Functions
+Perform calculations on multiple rows.
+
+**Functions**
+
+- COUNT()
+- SUM()
+- AVG()
+- MIN()
+- MAX()
+
+**Example**
+```sql
+SELECT
+COUNT(*) AS Total_Employees,
+AVG(Salary) AS Avg_Salary,
+MAX(Salary) AS Highest_Salary
+FROM Employee;
+```
+
+---
+
+## 12. GROUP BY
+Groups rows having the same values.
+
+**Syntax**
+```sql
+SELECT Department,
+COUNT(*)
+FROM Employee
+GROUP BY Department;
+```
+
+---
+
+## 13. HAVING
+Filters grouped records after aggregation.
+
+**Syntax**
+```sql
+SELECT Department,
+COUNT(*)
+FROM Employee
+GROUP BY Department
+HAVING COUNT(*) > 5;
+```
+
+---
+
+## 14. Sorting Data
+Sort query results using `ORDER BY`.
+
+**Ascending**
+```sql
+SELECT *
+FROM Employee
+ORDER BY Salary ASC;
+```
+
+**Descending**
+```sql
+SELECT *
+FROM Employee
+ORDER BY Salary DESC;
+```
+
+---
+
+## 15. String Functions
+Manipulate text values.
+
+**Common Functions**
+
+- UPPER()
+- LOWER()
+- LENGTH()
+- CONCAT()
+- SUBSTRING()
+- TRIM()
+
+**Example**
+```sql
+SELECT
+UPPER(Name),
+LENGTH(Name),
+CONCAT(Name,' - IT')
+FROM Employee;
+```
+
+---
+
+## 16. Date Functions
+Work with date and time values.
+
+**Common Functions**
+
+- CURRENT_DATE
+- CURRENT_TIMESTAMP
+- YEAR()
+- MONTH()
+- DAY()
+- DATEDIFF()
+
+**Example**
+```sql
+SELECT
+Hire_Date,
+YEAR(Hire_Date),
+MONTH(Hire_Date)
+FROM Employee;
+```
+
+---
+
+## 17. Numeric Functions
+Perform mathematical operations.
+
+**Common Functions**
+
+- ROUND()
+- CEIL()
+- FLOOR()
+- ABS()
+- POWER()
+
+**Example**
+```sql
+SELECT
+Salary,
+ROUND(Salary,2),
+ABS(-150)
+FROM Employee;
+```
+
+---
+
+## 18. Type Casting
+Converts one data type into another.
+
+**Syntax**
+```sql
+SELECT
+CAST(Salary AS DECIMAL(10,2))
+FROM Employee;
+```
+
+or
+
+```sql
+SELECT
+CONVERT(VARCHAR,Salary)
+FROM Employee;
+```
+
+---
+
+## 19. Data Cleaning Basics
+Prepare data before analysis by handling duplicates, NULL values, spaces, and inconsistent formats.
+
+**Common Techniques**
+
+- Remove NULL values
+- Remove duplicates
+- Trim spaces
+- Replace missing values
+- Standardize text
+- Convert data types
+
+**Example**
+```sql
+SELECT
+TRIM(UPPER(Name)) AS Clean_Name,
+COALESCE(Email,'Not Available') AS Email
+FROM Employee;
+```
+
+---
+
+# 💼 Real-World Use Cases
+
+These SQL concepts are frequently used in:
+
+- ETL & ELT Pipelines
+- Data Cleaning
+- Business Reporting
+- KPI Dashboards
+- Data Validation
+- Financial Reports
+- Sales Analytics
+- HR Analytics
+- Customer Segmentation
+- Data Warehousing
+
+---
+
+# 💡 Best Practices
+
+- Use `WHERE` before `GROUP BY` to filter data early.
+- Prefer `COALESCE()` over vendor-specific functions when possible.
+- Use aliases for better readability.
+- Avoid `SELECT *` in production queries.
+- Handle NULL values before performing calculations.
+- Write clean, well-formatted SQL for maintainability.
+
+---
+
+# 🎯 Level 2 Outcome
+
+After completing this level, you will be able to:
+
+- ✅ Filter data efficiently
+- ✅ Perform calculations using SQL
+- ✅ Search using patterns
+- ✅ Handle NULL values
+- ✅ Apply conditional logic
+- ✅ Summarize data with aggregate functions
+- ✅ Group and filter aggregated data
+- ✅ Manipulate strings, dates, and numbers
+- ✅ Clean and transform data for analytics
+- ✅ Write production-ready SQL queries for ETL and reporting
